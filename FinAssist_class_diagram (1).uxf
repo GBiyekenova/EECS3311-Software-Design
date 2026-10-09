@@ -1,0 +1,1135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>100</x>
+      <y>40</y>
+      <w>100</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+FinancialView
+&lt;&lt;MVC: View&gt;&gt;
+--
++ display(data : String) : void
++ displayError(message : String) : void
+bg=#B5D4F4</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>40</y>
+      <w>100</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>GUIView
+&lt;&lt;MVC: View&gt;&gt;
+--
++ display(data : String) : void
++ displayError(message : String) : void
++ showDashboard(summary : MonthlySummary) : void
++ submitEntry(entry : FinancialEntry) : void
++ getUserInput() : String
+bg=#B5D4F4</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>40</y>
+      <w>100</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>CLIView
+&lt;&lt;MVC: View&gt;&gt;
+--
++ display(data : String) : void
++ displayError(message : String) : void
++ showDashboard(summary : MonthlySummary) : void
++ getUserInput() : String
+bg=#B5D4F4</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>40</y>
+      <w>100</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>FinancialController
+&lt;&lt;MVC: Controller&gt;&gt;
+--
+- facade : FinAssistFacade
+--
++ logIncome(income : Income) : void
++ logExpense(expense : Expense) : void
++ requestDashboard(month : int, year : int) : void
++ requestSavingsAdvice() : void
++ askFinancialCoach(question : String) : void
++ manageSubscription(subscription : Subscription) : void
++ logVoiceEntry() : void
++ requestGoalSummary() : void
+bg=#B5D4F4</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>100</x>
+      <y>156</y>
+      <w>100</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>MonthlySummary
+&lt;&lt;MVC: Model&gt;&gt;
+--
+- totalIncome : double
+- totalExpenses : double
+- profit : double
+- savingsRate : double
+--
++ calculateProfit() : double
++ calculateSavingsRate() : double
++ getTotalIncome() : double
++ getTotalExpenses() : double
++ getProfit() : double
+bg=#FAC775</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>156</y>
+      <w>100</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>FinAssistFacade
+&lt;&lt;Facade&gt;&gt;
+--
+- financialService : FinancialService
+- dashboardService : DashboardService
+- subscriptionService : SubscriptionService
+- agentOrchestrator : AgentOrchestrator
+- voiceInputService : VoiceInputService
+- savingsAnalyzer : SavingsAnalyzer
+- repository : FinancialRepository
+--
++ logIncome(income : Income) : void
++ logExpense(expense : Expense) : void
++ getDashboard(month : int, year : int) : MonthlySummary
++ getSavingsAdvice() : String
++ askCoach(question : String) : String
++ addSubscription(subscription : Subscription) : void
++ removeSubscription(id : int) : void
++ logVoiceEntry() : void
++ getGoalSummary() : String
+bg=#E1F5EE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>156</y>
+      <w>100</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>VoiceInputService
+--
++ captureSpeech() : String
++ convertToEntry(transcript : String) : FinancialEntry
++ validateTranscript(transcript : String) : boolean
+bg=#9FE1CB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>100</x>
+      <y>316</y>
+      <w>100</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>FinancialService
+&lt;&lt;MVC: Model&gt;&gt;
+&lt;&lt;Observer: Subject&gt;&gt;
+--
++ addIncome(income : Income) : void
++ addExpense(expense : Expense) : void
++ calculateProfit() : double
++ getMonthlyEntries(month : int, year : int)
+   : List&lt;FinancialEntry&gt;
+bg=#9FE1CB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>316</y>
+      <w>100</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>DashboardService
+&lt;&lt;Observer: Observer&gt;&gt;
+--
++ generateMonthlyDashboard(month : int,
+   year : int) : MonthlySummary
++ calculateIncome(entries) : double
++ calculateExpenses(entries) : double
++ calculateProfit(entries) : double
++ calculateSavingsRate(summary) : double
++ update() : void
+bg=#9FE1CB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>316</y>
+      <w>100</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>SubscriptionService
+--
++ addSubscription(subscription : Subscription) : void
++ removeSubscription(id : int) : void
++ getSubscriptions() : List&lt;Subscription&gt;
++ calculateMonthlyCost() : double
+bg=#9FE1CB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>316</y>
+      <w>100</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>AgentOrchestrator
+--
+- agents : List&lt;FinancialAgent&gt;
+--
++ processRequest(request : String) : String
++ selectAgent(request : String) : FinancialAgent
++ addAgent(agent : FinancialAgent) : void
+bg=#CECBF6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>316</y>
+      <w>100</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>SavingsAnalyzer
+&lt;&lt;Strategy: Context&gt;&gt;
+&lt;&lt;Observer: Observer&gt;&gt;
+--
+- strategy : SavingsStrategy
+--
++ setStrategy(strategy : SavingsStrategy) : void
++ selectStrategy() : SavingsStrategy
++ analyze() : String
++ update() : void
+bg=#9FE1CB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>428</y>
+      <w>100</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+FinancialObserver
+&lt;&lt;Observer: Observer&gt;&gt;
+--
++ update() : void
+bg=#C0DD97</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>428</y>
+      <w>100</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>FinancialRepository
+--
++ saveEntry(entry : FinancialEntry) : void
++ getEntries() : List&lt;FinancialEntry&gt;
++ getEntriesByMonth(month : int, year : int)
+   : List&lt;FinancialEntry&gt;
++ saveGoal(goal : FinancialGoal) : void
++ getGoals() : List&lt;FinancialGoal&gt;
++ saveSubscription(subscription : Subscription) : void
++ getSubscriptions() : List&lt;Subscription&gt;
++ removeSubscription(id : int) : void
+bg=#D3D1C7</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>428</y>
+      <w>100</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+FinancialAgent
+&lt;&lt;Factory Method: Product&gt;&gt;
+--
++ process(input : String) : String
+bg=#CECBF6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>428</y>
+      <w>100</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+LLMService
+--
++ generate(prompt : String) : String
+bg=#CECBF6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>700</x>
+      <y>428</y>
+      <w>100</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+SavingsStrategy
+&lt;&lt;Strategy: Strategy&gt;&gt;
+--
++ calculateRecommendation(entries : List&lt;FinancialEntry&gt;,
+   goals : List&lt;FinancialGoal&gt;) : String
+bg=#F4C0D1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>100</x>
+      <y>524</y>
+      <w>100</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>FinancialDataSubject
+&lt;&lt;Observer: Subject&gt;&gt;
+--
+- observers : List&lt;FinancialObserver&gt;
+--
++ addObserver(observer : FinancialObserver) : void
++ removeObserver(observer : FinancialObserver) : void
++ notifyObservers() : void
+bg=#C0DD97</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>524</y>
+      <w>100</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>ExpenseDetectionAgent
+&lt;&lt;Observer: Observer&gt;&gt;
+&lt;&lt;Factory Method: Product&gt;&gt;
+--
++ process(input : String) : String
++ detectUnusualExpense(expense : Expense) : boolean
++ analyzeExpense(expense : Expense) : String
++ update() : void
+bg=#CECBF6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>524</y>
+      <w>100</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>FinancialCoachAgent
+&lt;&lt;Factory Method: Product&gt;&gt;
+--
++ process(input : String) : String
++ generateAdvice(question : String) : String
++ prepareContext() : String
+bg=#CECBF6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>524</y>
+      <w>100</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>GoalBasedSavingsStrategy
+&lt;&lt;Strategy: ConcreteStrategy&gt;&gt;
+--
++ calculateRecommendation(entries, goals) : String
+bg=#F4C0D1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>700</x>
+      <y>524</y>
+      <w>100</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>ExpenseBasedSavingsStrategy
+&lt;&lt;Strategy: ConcreteStrategy&gt;&gt;
+--
++ calculateRecommendation(entries, goals) : String
+bg=#F4C0D1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>608</y>
+      <w>100</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>ExpenseDetectionCreator
+&lt;&lt;Factory Method: ConcreteCreator&gt;&gt;
+--
++ createAgent() : FinancialAgent
+bg=#FBEAF0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>608</y>
+      <w>100</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+AgentCreator
+&lt;&lt;Factory Method: Creator&gt;&gt;
+--
++ createAgent() : FinancialAgent
+bg=#FBEAF0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>608</y>
+      <w>100</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>FinancialCoachCreator
+&lt;&lt;Factory Method: ConcreteCreator&gt;&gt;
+--
++ createAgent() : FinancialAgent
+bg=#FBEAF0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>820</x>
+      <y>40</y>
+      <w>100</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>User
+--
+- userId : int
+- name : String
+--
++ getFinancialEntries() : List&lt;FinancialEntry&gt;
++ getFinancialGoals() : List&lt;FinancialGoal&gt;
++ getSubscriptions() : List&lt;Subscription&gt;
+bg=#FAC775</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>940</x>
+      <y>40</y>
+      <w>100</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>FinancialGoal
+--
+- goalId : int
+- name : String
+- targetAmount : double
+- currentAmount : double
+- deadline : Date
+--
++ getProgress() : double
++ getRemainingAmount() : double
++ getDeadline() : Date
+bg=#FAC775</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>820</x>
+      <y>316</y>
+      <w>100</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+FinancialEntry
+&lt;&lt;MVC: Model&gt;&gt;
+--
+- entryId : int
+- amount : double
+- date : Date
+- description : String
+--
++ getAmount() : double
++ getDate() : Date
++ getDescription() : String
+bg=#FAC775</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>940</x>
+      <y>316</y>
+      <w>100</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>Subscription
+--
+- subscriptionId : int
+- name : String
+- amount : double
+- frequency : String
+- billingDate : Date
+--
++ getMonthlyCost() : double
++ getAmount() : double
++ getFrequency() : String
+bg=#FAC775</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>820</x>
+      <y>524</y>
+      <w>100</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Income
+--
++ getAmount() : double
+bg=#FAC775</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>940</x>
+      <y>524</y>
+      <w>100</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Expense
+--
++ getAmount() : double
++ isUnusual() : boolean
+bg=#FAC775</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>100</x>
+      <y>672</y>
+      <w>304</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Design patterns in this diagram
+--
+MVC: FinancialView/GUIView/CLIView (View), FinancialController (Controller), MonthlySummary/FinancialEntry/FinancialService (Model)
+Facade: FinAssistFacade hides the services, SavingsAnalyzer, AgentOrchestrator and VoiceInputService
+Strategy: SavingsAnalyzer (Context), SavingsStrategy, GoalBasedSavingsStrategy, ExpenseBasedSavingsStrategy
+Observer: FinancialDataSubject (Subject), FinancialObserver; DashboardService, SavingsAnalyzer, ExpenseDetectionAgent are observers
+Factory Method: AgentCreator (Creator), ExpenseDetectionCreator, FinancialCoachCreator; product FinancialAgent
+bg=#FFFFCC</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>396</y>
+      <w>12</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;324.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>892</x>
+      <y>396</y>
+      <w>96</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>217.0;324.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>316</x>
+      <y>624</y>
+      <w>32</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;11.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>436</x>
+      <y>624</y>
+      <w>32</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;11.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>196</x>
+      <y>60</y>
+      <w>32</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=..&gt;&gt;</panel_attributes>
+    <additional_attributes>60.0;13.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>196</x>
+      <y>56</y>
+      <w>152</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=..&gt;&gt;</panel_attributes>
+    <additional_attributes>360.0;15.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>316</x>
+      <y>460</y>
+      <w>160</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=..&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;175.0;380.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>460</y>
+      <w>12</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=..&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>460</y>
+      <w>12</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=..&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>376</y>
+      <w>12</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=..&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;128.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>316</x>
+      <y>360</y>
+      <w>272</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=..&gt;&gt;</panel_attributes>
+    <additional_attributes>660.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>644</x>
+      <y>460</y>
+      <w>88</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=..&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;160.0;201.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>744</x>
+      <y>460</y>
+      <w>12</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=..&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>124</y>
+      <w>28</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=1
+r2=facade</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>196</x>
+      <y>236</y>
+      <w>272</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>660.0;10.0;10.0;232.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>316</x>
+      <y>244</y>
+      <w>152</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>360.0;10.0;10.0;194.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>408</x>
+      <y>268</y>
+      <w>60</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>128.0;10.0;10.0;125.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>284</y>
+      <w>12</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>556</x>
+      <y>188</y>
+      <w>36</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;33.0;68.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>556</x>
+      <y>272</y>
+      <w>52</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;104.0;112.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>284</y>
+      <w>84</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>183.0;10.0;10.0;356.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>144</x>
+      <y>368</y>
+      <w>12</w>
+      <h>164</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;388.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>148</x>
+      <y>80</y>
+      <w>120</w>
+      <h>456</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+display results</panel_attributes>
+    <additional_attributes>279.0;1116.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>364</y>
+      <w>28</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..*
+r2=agents</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>668</x>
+      <y>384</y>
+      <w>64</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=1
+r2=strategy</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;112.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>176</x>
+      <y>460</y>
+      <w>80</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..*
+r2=observers</panel_attributes>
+    <additional_attributes>10.0;160.0;178.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>92</y>
+      <w>20</w>
+      <h>236</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;564.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>916</x>
+      <y>68</y>
+      <w>32</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;14.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>876</x>
+      <y>92</y>
+      <w>112</w>
+      <h>236</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;241.0;564.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>436</x>
+      <y>364</y>
+      <w>392</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;216.0;960.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>316</x>
+      <y>64</y>
+      <w>152</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+uses</panel_attributes>
+    <additional_attributes>10.0;10.0;360.0;33.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>196</x>
+      <y>364</y>
+      <w>152</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;360.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>296</x>
+      <y>376</y>
+      <w>64</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;135.0;128.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>356</y>
+      <w>12</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;176.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>436</x>
+      <y>372</y>
+      <w>152</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>360.0;10.0;10.0;171.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>492</y>
+      <w>48</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;102.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>492</y>
+      <w>52</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>109.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>316</x>
+      <y>452</y>
+      <w>272</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;209.0;660.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>456</y>
+      <w>88</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;176.0;202.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>624</x>
+      <y>384</y>
+      <w>12</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;112.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>240</y>
+      <w>72</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;creates&gt;&gt;</panel_attributes>
+    <additional_attributes>157.0;192.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>648</x>
+      <y>188</y>
+      <w>180</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;creates&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;424.0;327.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>576</y>
+      <w>36</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;creates&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>564</y>
+      <w>36</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;creates&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;112.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>396</x>
+      <y>460</y>
+      <w>108</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;372.0;248.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>436</x>
+      <y>104</y>
+      <w>512</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;813.0;1260.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>436</x>
+      <y>360</y>
+      <w>512</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>10.0;233.0;1260.0;10.0</additional_attributes>
+  </element>
+</diagram>
