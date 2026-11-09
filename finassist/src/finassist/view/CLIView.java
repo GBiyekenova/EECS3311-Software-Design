@@ -35,7 +35,9 @@ public class CLIView implements FinancialView {
             System.out.println(" 6 Add goal           7 Goal summary         8 Savings advice (AI)");
             System.out.println(" 9 Add subscription  10 Remove subscription 11 List subscriptions");
             System.out.println("12 Ask AI coach       0 Exit");
-            String choice = ask("Choose: ");
+            System.out.print("Choose: ");
+            if (!in.hasNextLine()) return; // input ended (for example piped input): leave the menu
+            String choice = in.nextLine().trim();
             try {
                 switch (choice) {
                     case "1": logExpense(); break;
