@@ -1,0 +1,60 @@
+OPENAI_API_KEY is not set: using the offline demo AI and typed voice input.
+FinAssist - personal finance assistant
+
+ 1 Log expense        2 Log income          3 Voice entry
+ 4 Dashboard          5 End-of-month summary (AI)
+ 6 Add goal           7 Goal summary         8 Savings advice (AI)
+ 9 Add subscription  10 Remove subscription 11 List subscriptions
+12 Ask AI coach       0 Exit
+Choose: Month (1-12): Year: Income:        $3000.00
+Expenses:      $1085.00
+Profit:        $1915.00
+Savings rate:  63.8%  [#############-------]
+Spending by category:
+  Housing        $  900.00  ####################
+  Groceries      $  120.00  ###-----------------
+  Food           $   65.00  #-------------------
+Unusual expenses:
+  2026-11-01  $900.00 at Landlord (Housing)
+Recurring subscriptions: $15.99 per month
+Goals:
+  Vacation          25% [#####---------------]
+
+ 1 Log expense        2 Log income          3 Voice entry
+ 4 Dashboard          5 End-of-month summary (AI)
+ 6 Add goal           7 Goal summary         8 Savings advice (AI)
+ 9 Add subscription  10 Remove subscription 11 List subscriptions
+12 Ask AI coach       0 Exit
+Choose: Financial goals:
+- Vacation: 25% done, $1500.00 remaining of $2000.00, deadline 2027-05-08, save $214.29 per month
+
+
+ 1 Log expense        2 Log income          3 Voice entry
+ 4 Dashboard          5 End-of-month summary (AI)
+ 6 Add goal           7 Goal summary         8 Savings advice (AI)
+ 9 Add subscription  10 Remove subscription 11 List subscriptions
+12 Ask AI coach       0 Exit
+Choose: Subscriptions:
+- #1 Netflix: $15.99/month, $191.88/year (MONTHLY)
+Total: $15.99 per month, $191.88 per year
+
+ 1 Log expense        2 Log income          3 Voice entry
+ 4 Dashboard          5 End-of-month summary (AI)
+ 6 Add goal           7 Goal summary         8 Savings advice (AI)
+ 9 Add subscription  10 Remove subscription 11 List subscriptions
+12 Ask AI coach       0 Exit
+Choose: AI coach - ask questions, empty line to leave.
+You: Coach: [Offline demo AI - set OPENAI_API_KEY for real answers]
+- 2026-11-03 expense Groceries $120.00
+Goals:
+- Vacation: target $2000.00, saved $500.00, deadline 2027-05-08
+Subscriptions:
+- Netflix: $15.99 per month
+Question: How can I reduce my food spending this month?
+You: 
+ 1 Log expense        2 Log income          3 Voice entry
+ 4 Dashboard          5 End-of-month summary (AI)
+ 6 Add goal           7 Goal summary         8 Savings advice (AI)
+ 9 Add subscription  10 Remove subscription 11 List subscriptions
+12 Ask AI coach       0 Exit
+Choose: 

@@ -1,0 +1,488 @@
+{
+ "User": [
+  "class",
+  [
+   "- userId : int",
+   "- name : String",
+   "- entries : List<FinancialEntry>",
+   "- goals : List<FinancialGoal>",
+   "- subscriptions : List<Subscription>"
+  ],
+  [
+   "+ getUserId() : int",
+   "+ getName() : String",
+   "+ getFinancialEntries() : List<FinancialEntry>",
+   "+ getFinancialGoals() : List<FinancialGoal>",
+   "+ getSubscriptions() : List<Subscription>"
+  ]
+ ],
+ "FinancialEntry": [
+  "abstract",
+  [
+   "- entryId : int",
+   "- amount : double",
+   "- date : LocalDate",
+   "- description : String"
+  ],
+  [
+   "+ getEntryId() : int",
+   "+ setEntryId(int) : void",
+   "+ getAmount() : double",
+   "+ getDate() : LocalDate",
+   "+ getDescription() : String"
+  ]
+ ],
+ "Income": [
+  "class",
+  [
+   "- source : String",
+   "- type : String"
+  ],
+  [
+   "+ getAmount() : double",
+   "+ getSource() : String",
+   "+ getType() : String"
+  ]
+ ],
+ "Expense": [
+  "class",
+  [
+   "- category : String",
+   "- merchant : String",
+   "- unusual : boolean"
+  ],
+  [
+   "+ getAmount() : double",
+   "+ getCategory() : String",
+   "+ getMerchant() : String",
+   "+ isUnusual() : boolean",
+   "+ setUnusual(boolean) : void"
+  ]
+ ],
+ "FinancialGoal": [
+  "class",
+  [
+   "- goalId : int",
+   "- name : String",
+   "- targetAmount : double",
+   "- currentAmount : double",
+   "- deadline : LocalDate"
+  ],
+  [
+   "+ getGoalId() : int",
+   "+ setGoalId(int) : void",
+   "+ getName() : String",
+   "+ getTargetAmount() : double",
+   "+ getCurrentAmount() : double",
+   "+ getDeadline() : LocalDate",
+   "+ getProgress() : double",
+   "+ getRemainingAmount() : double",
+   "+ getRequiredMonthlySavings() : double"
+  ]
+ ],
+ "Subscription": [
+  "class",
+  [
+   "- subscriptionId : int",
+   "- name : String",
+   "- amount : double",
+   "- frequency : String",
+   "- billingDate : LocalDate"
+  ],
+  [
+   "+ getSubscriptionId() : int",
+   "+ setSubscriptionId(int) : void",
+   "+ getName() : String",
+   "+ getAmount() : double",
+   "+ getFrequency() : String",
+   "+ getBillingDate() : LocalDate",
+   "+ getMonthlyCost() : double",
+   "+ getAnnualCost() : double"
+  ]
+ ],
+ "MonthlySummary": [
+  "class",
+  [
+   "- totalIncome : double",
+   "- totalExpenses : double",
+   "- profit : double",
+   "- savingsRate : double",
+   "- entryCount : int",
+   "- categoryTotals : Map<String, Double>",
+   "- unusualExpenses : List<Expense>",
+   "- subscriptionMonthlyCost : double",
+   "- goals : List<FinancialGoal>",
+   "- interpretation : String",
+   "- aiNotice : String"
+  ],
+  [
+   "+ calculateProfit() : double",
+   "+ calculateSavingsRate() : double",
+   "+ getTotalIncome() : double",
+   "+ getTotalExpenses() : double",
+   "+ getProfit() : double",
+   "+ getSavingsRate() : double",
+   "+ isEmpty() : boolean",
+   "+ getEntryCount() : int",
+   "+ setEntryCount(int) : void",
+   "+ getCategoryTotals() : Map<String, Double>",
+   "+ setCategoryTotals(Map<String, Double>) : void",
+   "+ getUnusualExpenses() : List<Expense>",
+   "+ setUnusualExpenses(List<Expense>) : void",
+   "+ getSubscriptionMonthlyCost() : double",
+   "+ setSubscriptionMonthlyCost(double) : void",
+   "+ getGoals() : List<FinancialGoal>",
+   "+ setGoals(List<FinancialGoal>) : void",
+   "+ getInterpretation() : String",
+   "+ setInterpretation(String) : void",
+   "+ getAiNotice() : String",
+   "+ setAiNotice(String) : void",
+   "+ describe() : String"
+  ]
+ ],
+ "FinancialRepository": [
+  "class",
+  [
+   "- user : User",
+   "- nextEntryId : int",
+   "- nextGoalId : int",
+   "- nextSubscriptionId : int",
+   "- file : Path"
+  ],
+  [
+   "+ saveEntry(FinancialEntry) : synchronized void",
+   "+ getEntries() : synchronized List<FinancialEntry>",
+   "+ getEntriesByMonth(int, int) : synchronized List<FinancialEntry>",
+   "+ saveGoal(FinancialGoal) : synchronized void",
+   "+ getGoals() : synchronized List<FinancialGoal>",
+   "+ saveSubscription(Subscription) : synchronized void",
+   "+ getSubscriptions() : synchronized List<Subscription>",
+   "+ removeSubscription(int) : synchronized void",
+   "+ persist() : synchronized void"
+  ]
+ ],
+ "FinancialView": [
+  "interface",
+  [],
+  [
+   "+ display(String) : void",
+   "+ displayError(String) : void",
+   "+ showDashboard(MonthlySummary) : void",
+   "+ getUserInput() : String"
+  ]
+ ],
+ "GUIView": [
+  "class",
+  [
+   "- controller : FinancialController",
+   "- worker : ExecutorService",
+   "- output : JTextArea",
+   "- status : JLabel",
+   "- chart : GUIView$ChartPanel",
+   "- savingsBar : JProgressBar",
+   "- lastMessage : String",
+   "- kind : JComboBox<String>",
+   "- amount : JTextField",
+   "- date : JTextField",
+   "- field1 : JTextField",
+   "- field2 : JTextField",
+   "- description : JTextField",
+   "- label1 : JLabel",
+   "- label2 : JLabel",
+   "- month : JSpinner",
+   "- year : JSpinner",
+   "- coachQuestion : JTextField"
+  ],
+  [
+   "+ display(String) : void",
+   "+ displayError(String) : void",
+   "+ showDashboard(MonthlySummary) : void",
+   "+ getUserInput() : String",
+   "+ submitEntry(FinancialEntry) : void"
+  ]
+ ],
+ "CLIView": [
+  "class",
+  [
+   "- controller : FinancialController",
+   "- in : Scanner"
+  ],
+  [
+   "+ display(String) : void",
+   "+ displayError(String) : void",
+   "+ showDashboard(MonthlySummary) : void",
+   "+ getUserInput() : String",
+   "+ run() : void"
+  ]
+ ],
+ "FinancialController": [
+  "class",
+  [
+   "- facade : FinAssistFacade",
+   "- view : FinancialView"
+  ],
+  [
+   "+ setView(FinancialView) : void",
+   "+ logIncome(Income) : void",
+   "+ logExpense(Expense) : void",
+   "+ logVoiceEntry() : void",
+   "+ requestDashboard(int, int) : void",
+   "+ requestMonthlySummary(int, int) : void",
+   "+ addGoal(FinancialGoal) : void",
+   "+ requestGoalSummary() : void",
+   "+ requestSavingsAdvice() : void",
+   "+ askFinancialCoach(String) : void",
+   "+ manageSubscription(Subscription) : void",
+   "+ removeSubscription(int) : void",
+   "+ requestSubscriptions() : void"
+  ]
+ ],
+ "FinAssistFacade": [
+  "class",
+  [
+   "- financialService : FinancialService",
+   "- dashboardService : DashboardService",
+   "- subscriptionService : SubscriptionService",
+   "- agentOrchestrator : AgentOrchestrator",
+   "- voiceInputService : VoiceInputService",
+   "- savingsAnalyzer : SavingsAnalyzer",
+   "- repository : FinancialRepository",
+   "- expenseDetectionAgent : ExpenseDetectionAgent",
+   "- pendingVoiceEntry : FinancialEntry"
+  ],
+  [
+   "+ setView(FinancialView) : void",
+   "+ logIncome(Income) : void",
+   "+ logExpense(Expense) : void",
+   "+ logVoiceEntry() : void",
+   "+ getPendingVoiceEntry() : FinancialEntry",
+   "+ confirmVoiceEntry(boolean) : void",
+   "+ getDashboard(int, int) : MonthlySummary",
+   "+ getMonthlySummary(int, int) : MonthlySummary",
+   "+ addGoal(FinancialGoal) : void",
+   "+ getGoalSummary() : String",
+   "+ getSavingsAdvice() : String",
+   "+ askCoach(String) : String",
+   "+ addSubscription(Subscription) : void",
+   "+ removeSubscription(int) : void",
+   "+ getSubscriptionSummary() : String"
+  ]
+ ],
+ "FinancialService": [
+  "class",
+  [
+   "- repository : FinancialRepository"
+  ],
+  [
+   "+ addIncome(Income) : void",
+   "+ addExpense(Expense) : void",
+   "+ calculateProfit() : double",
+   "+ getMonthlyEntries(int, int) : List<FinancialEntry>"
+  ]
+ ],
+ "DashboardService": [
+  "class",
+  [
+   "- repository : FinancialRepository",
+   "- cache : Map<String, MonthlySummary>"
+  ],
+  [
+   "+ generateMonthlyDashboard(int, int) : MonthlySummary",
+   "+ calculateIncome(List<FinancialEntry>) : double",
+   "+ calculateExpenses(List<FinancialEntry>) : double",
+   "+ calculateProfit(List<FinancialEntry>) : double",
+   "+ calculateSavingsRate(MonthlySummary) : double",
+   "+ update() : void"
+  ]
+ ],
+ "SubscriptionService": [
+  "class",
+  [
+   "- repository : FinancialRepository"
+  ],
+  [
+   "+ addSubscription(Subscription) : void",
+   "+ removeSubscription(int) : void",
+   "+ getSubscriptions() : List<Subscription>",
+   "+ calculateMonthlyCost() : double"
+  ]
+ ],
+ "SavingsAnalyzer": [
+  "class",
+  [
+   "- repository : FinancialRepository",
+   "- llm : LLMService",
+   "- strategy : SavingsStrategy"
+  ],
+  [
+   "+ setStrategy(SavingsStrategy) : void",
+   "+ selectStrategy() : SavingsStrategy",
+   "+ analyze() : String",
+   "+ update() : void"
+  ]
+ ],
+ "VoiceInputService": [
+  "class",
+  [
+   "- apiKey : String",
+   "- fallbackInput : Supplier<String>",
+   "- recordSeconds : int"
+  ],
+  [
+   "+ setFallbackInput(Supplier<String>) : void",
+   "+ captureSpeech() : String",
+   "+ validateTranscript(String) : boolean",
+   "+ convertToEntry(String) : FinancialEntry"
+  ]
+ ],
+ "FinancialDataSubject": [
+  "class",
+  [
+   "- observers : List<FinancialObserver>"
+  ],
+  [
+   "+ addObserver(FinancialObserver) : void",
+   "+ removeObserver(FinancialObserver) : void",
+   "+ notifyObservers() : void"
+  ]
+ ],
+ "FinancialObserver": [
+  "interface",
+  [],
+  [
+   "+ update() : void"
+  ]
+ ],
+ "SavingsStrategy": [
+  "interface",
+  [],
+  [
+   "+ calculateRecommendation(List<FinancialEntry>, List<FinancialGoal>) : String"
+  ]
+ ],
+ "GoalBasedSavingsStrategy": [
+  "class",
+  [],
+  [
+   "+ calculateRecommendation(List<FinancialEntry>, List<FinancialGoal>) : String"
+  ]
+ ],
+ "ExpenseBasedSavingsStrategy": [
+  "class",
+  [],
+  [
+   "+ calculateRecommendation(List<FinancialEntry>, List<FinancialGoal>) : String"
+  ]
+ ],
+ "FinancialAgent": [
+  "interface",
+  [],
+  [
+   "+ process(String) : String"
+  ]
+ ],
+ "ExpenseDetectionAgent": [
+  "class",
+  [
+   "- repository : FinancialRepository",
+   "- llm : LLMService",
+   "- view : FinancialView",
+   "- lastAnalyzedId : int",
+   "- enoughHistory : boolean",
+   "- mean : double",
+   "- threshold : double",
+   "- basis : String"
+  ],
+  [
+   "+ setView(FinancialView) : void",
+   "+ hasEnoughHistory() : boolean",
+   "+ detectUnusualExpense(Expense) : boolean",
+   "+ analyzeExpense(Expense) : String",
+   "+ update() : void",
+   "+ process(String) : String"
+  ]
+ ],
+ "FinancialCoachAgent": [
+  "class",
+  [
+   "- repository : FinancialRepository",
+   "- llm : LLMService",
+   "- history : List<String>"
+  ],
+  [
+   "+ process(String) : String",
+   "+ generateAdvice(String) : String",
+   "+ prepareContext() : String"
+  ]
+ ],
+ "AgentOrchestrator": [
+  "class",
+  [
+   "- agents : List<FinancialAgent>",
+   "- expenseDetectionCreator : AgentCreator",
+   "- financialCoachCreator : AgentCreator"
+  ],
+  [
+   "+ processRequest(String) : String",
+   "+ selectAgent(String) : FinancialAgent",
+   "+ addAgent(FinancialAgent) : void"
+  ]
+ ],
+ "AgentCreator": [
+  "abstract",
+  [],
+  [
+   "+ createAgent() : FinancialAgent"
+  ]
+ ],
+ "ExpenseDetectionAgentCreator": [
+  "class",
+  [
+   "- repository : FinancialRepository",
+   "- llm : LLMService"
+  ],
+  [
+   "+ createAgent() : FinancialAgent"
+  ]
+ ],
+ "FinancialCoachAgentCreator": [
+  "class",
+  [
+   "- repository : FinancialRepository",
+   "- llm : LLMService"
+  ],
+  [
+   "+ createAgent() : FinancialAgent"
+  ]
+ ],
+ "LLMService": [
+  "interface",
+  [],
+  [
+   "+ generate(String) : String"
+  ]
+ ],
+ "OpenAILLMService": [
+  "class",
+  [
+   "- apiKey : String",
+   "- model : String",
+   "- client : HttpClient"
+  ],
+  [
+   "+ generate(String) : String",
+   "+ jsonString(String) : String",
+   "+ extractJsonString(String, String) : String"
+  ]
+ ],
+ "MockLLMService": [
+  "class",
+  [
+   "- available : boolean"
+  ],
+  [
+   "+ setAvailable(boolean) : void",
+   "+ generate(String) : String"
+  ]
+ ]
+}
