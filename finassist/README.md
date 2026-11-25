@@ -107,7 +107,7 @@ Agent.jar                          standalone agent (src/finassist/AgentCLI.java
 examples/task.txt                  example task files for Agent.jar
 docs/diagrams/                     UML class and sequence diagrams (PNG/SVG)
 docs/sample/cli-session.txt        example CLI run with --demo
-stage2-report.docx / .pdf          Stage 2 implementation report
+../EECS3311_Fall_2026_Course_Project_Stage-2.pdf  Stage 2 implementation report (repository root)
 ```
 
 ## 9. Design patterns -> classes (package `finassist.*`)
@@ -133,4 +133,4 @@ stage2-report.docx / .pdf          Stage 2 implementation report
 | F10 AI coach | `FinancialCoachAgent.process / prepareContext / generateAdvice` (keeps the conversation for follow-ups) |
 
 
-The updated UML class diagram (generated from the compiled code) is `docs/diagrams/class_diagram_full.png`; the differences from the Stage 1 design are listed in section 4 of `stage2-report`. Helper classes: `OpenAILLMService`, `MockLLMService` (the two `LLMService` implementations), `ValidationException`, `LLMUnavailableException`, `DashboardFormatter`, `Stats`.
+The updated UML class diagram (generated from the compiled code) is `docs/diagrams/class_diagram_full.png`; the differences from the Stage 1 design are listed in section 4 of the Stage 2 report ([`EECS3311_Fall_2026_Course_Project_Stage-2.pdf`](../EECS3311_Fall_2026_Course_Project_Stage-2.pdf) in the repository root). Helper classes: `OpenAILLMService`, `MockLLMService` (the two `LLMService` implementations), `ValidationException`, `LLMUnavailableException`, `DashboardFormatter`, `Stats`.
