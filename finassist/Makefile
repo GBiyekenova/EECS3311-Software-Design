@@ -1,4 +1,4 @@
-.PHONY: all test run-gui run-cli clean
+.PHONY: all test run-gui run-cli run-agent clean
 all test:
 	sh build.sh
 run-gui:
@@ -6,4 +6,6 @@ run-gui:
 run-cli:
 	java -cp out finassist.Main cli --demo
 clean:
-	rm -rf out
+	rm -rf out Agent.jar
+run-agent:
+	java -jar Agent.jar -input examples/task.txt -demo

@@ -1,6 +1,6 @@
 # FinAssist - personal finance assistant with AI agents
 
-Java application with a Swing GUI and a command-line interface, no external libraries.
+EECS3311 Fall 2026 course project (Stage 2). Java application with a Swing GUI and a command-line interface, no external libraries.
 
 ## 1. Prerequisites
 * **JDK 11 or newer** (`javac -version` must work; tested with OpenJDK 17+). Swing is part of the JDK; the GUI needs a desktop (on a headless server use the CLI).
@@ -44,6 +44,44 @@ Use `cli` instead of `gui` for the command line.
 ## 6. Safe sample data
 `--demo` (see `Main.seed`) adds fictional data dated in the current month: salary 3000, five lunches (11-15), rent 900, groceries 120, a "Vacation" goal (2000 target, 500 saved, due in 6 months) and a Netflix subscription. It contains no real personal information. To start fresh, delete the data file. A captured example run is in `docs/sample/cli-session.txt`.
 
+## 6a. Standalone agent: `Agent.jar`
+`build.sh` (or `build.bat` / `make`) also creates `Agent.jar`, a runnable jar that runs the AI agent on one task read from a text file, with no menu or window. The built `Agent.jar` is included in the repository, so Java 11+ alone is enough to run it.
+
+```
+java -jar Agent.jar [options] -input <task file>
+```
+
+| Option | Meaning |
+|---|---|
+| `-input <file>` | Task to run, as plain text (required). `-input -` reads the task from standard input. |
+| `-LLMAPI` | Use the real OpenAI LLM. Needs the `OPENAI_API_KEY` environment variable (exit code 2 if it is missing). Without this option the offline stand-in AI is used and its answers are placeholders. |
+| `-model <name>` | OpenAI model (default: `OPENAI_MODEL`, else `gpt-4o-mini`). Only used with `-LLMAPI`. |
+| `-data <file>` | Load and save the financial data in this file. Default: empty in-memory data, so the agent has nothing to analyse. |
+| `-demo` | Add the fictional sample data (see section 6) before running. |
+| `-output <file>` | Write the answer to this file instead of the screen. |
+| `-help` | Print the options. |
+
+The task text goes to `AgentOrchestrator` through `FinAssistFacade.askCoach`: a task that starts with `analyze unusual expense` runs `ExpenseDetectionAgent`; any other text runs `FinancialCoachAgent`, which builds a context from the user's data and asks the LLM. Exit codes: `0` success, `1` failure (unreadable or empty task file, AI service unavailable), `2` wrong usage. The answer goes to standard output; notes and errors go to standard error.
+
+Working example (`examples/task.txt` contains `How can I reduce my food spending this month?`):
+```
+$ export OPENAI_API_KEY=sk-...            # your own key
+$ java -jar Agent.jar -LLMAPI -input examples/task.txt -demo
+```
+Offline run, no key (this is the real output, with placeholder AI text):
+```
+$ java -jar Agent.jar -input examples/task.txt -demo
+Note: offline stand-in AI in use (add -LLMAPI for the real LLM).
+[Offline demo AI - set OPENAI_API_KEY for real answers]
+- 2026-11-03 expense Groceries $120.00
+Goals:
+- Vacation: target $2000.00, saved $500.00, deadline 2027-05-24
+Subscriptions:
+- Netflix: $15.99 per month
+Question: How can I reduce my food spending this month?
+```
+Note: `-LLMAPI` calls were not tested here (no API key in the development environment); the offline path and error handling were run.
+
 ## 7. Example usage
 GUI: tabs *Log entry*, *Dashboard*, *Goals*, *Subscriptions*, *AI coach*. Pick "Expense", enter amount, date, category and merchant, press submit; open *Dashboard*, choose month and year, press show.
 
@@ -64,7 +102,9 @@ Voice entry (`3`): speak, or without a key type a sentence such as `I spent 12.5
 ## 8. Project layout
 ```
 src/finassist/{model,repository,view,controller,facade,service,agent,strategy,observer,llm,exception,test}  Java sources
-build.sh  build.bat  Makefile      build files (no dependencies)
+build.sh  build.bat  Makefile      build files (no dependencies); they also create Agent.jar
+Agent.jar                          standalone agent (src/finassist/AgentCLI.java)
+examples/task.txt                  example task files for Agent.jar
 docs/diagrams/                     UML class and sequence diagrams (PNG/SVG)
 docs/sample/cli-session.txt        example CLI run with --demo
 stage2-report.docx / .pdf          Stage 2 implementation report
